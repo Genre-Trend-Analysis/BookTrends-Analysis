@@ -50,8 +50,8 @@ def home_page():
     st.pyplot(plt)
 
 def page1():
-    st.title("페이지 1")
-    st.write("교보문고")
+    st.title("교보문고")
+    st.write("데이터 분석 결과")
     
     project_root = os.path.dirname(os.getcwd())  
     data_dir = os.path.join(project_root, 'datas')
@@ -79,8 +79,8 @@ def page1():
     st.pyplot(plt)
 
 def page2():
-    st.title("페이지 2")
-    st.write("예스24")
+    st.title("예스24")
+    st.write("데이터 분석 결과")
     
     project_root = os.path.dirname(os.getcwd())  
     data_dir = os.path.join(project_root, 'datas')
