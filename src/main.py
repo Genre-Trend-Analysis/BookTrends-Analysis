@@ -77,6 +77,48 @@ def page1():
     plt.legend(title='하위 장르', title_fontsize=10, fontsize=8)
     # Show the plot
     st.pyplot(plt)
+    
+    # 종합 소설 베스트셀러 월별 조회
+    project_root = os.path.dirname(os.getcwd())  
+    data_dir = os.path.join(project_root, 'datas')
+    data_path = os.path.join(data_dir, "novel_bestseller(kyobo).csv")
+    data = pd.read_csv(data_path)
+    
+    st.markdown("""
+    <p style='text-align: center; color: #FFFFFF; font-size: 20px;'>
+                <b>종합 소설 베스트셀러 데이터 조회</b></p>             
+    """, unsafe_allow_html=True)
+    
+    selected_month = st.selectbox('월 선택', options=data['Month'].unique())
+    filtered_data = data[data['Month'] == selected_month]
+
+    st.write(f"선택된 월: {selected_month}의 데이터")
+    st.dataframe(filtered_data)
+    
+    # 장르 소설 베스트셀러 월별/장르별 조회
+    project_root = os.path.dirname(os.getcwd())  
+    data_dir = os.path.join(project_root, 'datas')
+    data_path = os.path.join(data_dir, "genre_novel_bestseller(kyobo).csv")
+    data_yes = pd.read_csv(data_path)
+
+    st.write('')
+    st.write('')
+    st.write('')
+  
+    st.markdown("""
+    <p style='text-align: center; color: #FFFFFF; font-size: 20px;'>
+                <b>월별 소설 데이터 내 장르별 소설 순위 데이터 조회</b></p>             
+    """, unsafe_allow_html=True)
+
+
+    selected_month = st.selectbox('월 선택', options=data_yes['Month'].unique())
+    selected_genre = st.selectbox('장르 선택', options=data_yes['Category'].unique())
+ 
+    filtered_data = data_yes[(data_yes['Month'] == selected_month) & (data_yes['Category'] == selected_genre)]
+
+    
+    st.write(f"선택된 월: {selected_month}, 장르: {selected_genre}의 데이터")
+    st.dataframe(filtered_data)
 
 def page2():
     st.title("예스24")
@@ -107,13 +149,29 @@ def page2():
     # Show the plot
     st.pyplot(plt)
     
+    # 종합 소설 베스트셀러 월별 조회
+    project_root = os.path.dirname(os.getcwd())  
+    data_dir = os.path.join(project_root, 'datas')
+    data_path = os.path.join(data_dir, "novel_bestseller(yes).csv")
+    data = pd.read_csv(data_path)
+    
+    st.markdown("""
+    <p style='text-align: center; color: #FFFFFF; font-size: 20px;'>
+                <b>종합 소설 베스트셀러 데이터 조회</b></p>             
+    """, unsafe_allow_html=True)
+    
+    selected_month = st.selectbox('월 선택', options=data['월'].unique())
+    filtered_data = data[data['월'] == selected_month]
+
+    st.write(f"선택된 월: {selected_month}의 데이터")
+    st.dataframe(filtered_data)
+    
     # 장르 소설 베스트셀러 월별/장르별 조회
     project_root = os.path.dirname(os.getcwd())  
     data_dir = os.path.join(project_root, 'datas')
-    data_path = os.path.join(data_dir, "genre_yes.csv")
+    data_path = os.path.join(data_dir, "genre_novel_bestseller(yes).csv")
     data_yes = pd.read_csv(data_path)
 
-    #data_yes['월'] = data_yes['월'].astype(str).str.replace('|', '').str.strip()
     st.write('')
     st.write('')
     st.write('')
@@ -124,10 +182,10 @@ def page2():
     """, unsafe_allow_html=True)
 
 
-    selected_month = st.selectbox('월 선택', options=data_yes['월'].unique())
-    selected_genre = st.selectbox('장르 선택', options=data_yes['genre'].unique())
+    selected_month = st.selectbox('월 선택', options=data_yes['Month'].unique(), key='month_selectbox')
+    selected_genre = st.selectbox('장르 선택', options=data_yes['Genre'].unique(), key='genre_selectbox')
  
-    filtered_data = data_yes[(data_yes['월'] == selected_month) & (data_yes['genre'] == selected_genre)]
+    filtered_data = data_yes[(data_yes['Month'] == selected_month) & (data_yes['Genre'] == selected_genre)]
 
     
     st.write(f"선택된 월: {selected_month}, 장르: {selected_genre}의 데이터")
